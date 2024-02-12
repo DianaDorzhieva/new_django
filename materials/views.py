@@ -1,4 +1,4 @@
-from rest_framework import viewsets, generics
+from rest_framework import generics
 from materials.models import Materials
 from materials.serliazers import MaterialsSerializer
 
