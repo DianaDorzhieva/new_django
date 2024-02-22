@@ -1,5 +1,5 @@
 from django.core.management import BaseCommand
-from users.models import User, Client
+from users.models import User, Client, UserRole
 from materials.models import Materials
 from course.models import Course
 
@@ -61,11 +61,14 @@ class Command(BaseCommand):
             {
                 "email": "Test@mail.ru",
                 "FIO": "Ivan Ivanov",
+                "password":"123",
+                "role": UserRole.MODERATOR,
                 "pk": 1
             },
             {
                 "email": "New@mail.ru",
                 "FIO": "Diana Dorzh",
+                "password": "123",
                 "pk": 2
 
             }
@@ -77,7 +80,7 @@ class Command(BaseCommand):
         "создаем клиента"
         client_list = [
             {
-                "user_id": 1,
+                #"user_id": 1,
                 "courses_id": 1,
                 "materials_id": 1,
                 "day_pay": '2024-02-12',
@@ -86,7 +89,7 @@ class Command(BaseCommand):
 
             },
             {
-                "user_id": 2,
+                #"user_id": 2,
                 "courses_id": 2,
                 "materials_id": 2,
                 "day_pay": '2023-02-12',

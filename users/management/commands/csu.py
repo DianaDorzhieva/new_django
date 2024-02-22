@@ -8,6 +8,7 @@ class Command(BaseCommand):
         User.objects.all().delete()
 
         user = User.objects.create(
+
             email='admin@admin',
             first_name='admin',
             is_staff=True,

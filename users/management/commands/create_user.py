@@ -1,5 +1,5 @@
 from django.core.management import BaseCommand
-from users.models import User
+from users.models import User, UserRole
 
 
 class Command(BaseCommand):
@@ -10,7 +10,9 @@ class Command(BaseCommand):
             email='test',
             first_name='test',
             is_staff=False,
-            is_superuser=False
+            is_superuser=False,
+
         )
+        User.role = UserRole.MODERATOR
         user.set_password('123qwerty')
         user.save()

@@ -8,7 +8,7 @@ from users.permission import IsModerator, IsOwner
 
 class MaterialsCreateAPIView(generics.CreateAPIView):
     serializer_class = MaterialsSerializer
-    #permission_classes = [IsAuthenticated, ~IsModerator, IsOwner]
+    permission_classes = [IsAuthenticated | ~IsModerator | IsOwner]
 
     def perform_create(self, serializer):
         new_materials = serializer.save()
@@ -19,21 +19,21 @@ class MaterialsCreateAPIView(generics.CreateAPIView):
 class MaterialsListAPIView(generics.ListAPIView):
     serializer_class = MaterialsSerializer
     queryset = Materials.objects.all()
-    permission_classes = [IsAuthenticated, IsModerator, IsOwner]
+    permission_classes = [IsAuthenticated | IsModerator | IsOwner]
 
 
 class MaterialsRetrieveAPIView(generics.RetrieveAPIView):
     serializer_class = MaterialsSerializer
     queryset = Materials.objects.all()
-    permission_classes = [IsAuthenticated, IsModerator, IsOwner]
+    permission_classes = [IsAuthenticated | IsModerator | IsOwner]
 
 
 class MaterialsUpdateAPIView(generics.UpdateAPIView):
     serializer_class = MaterialsSerializer
     queryset = Materials.objects.all()
-    permission_classes = [IsAuthenticated, IsModerator, IsOwner]
+    permission_classes = [IsAuthenticated | IsModerator | IsOwner]
 
 
 class MaterialsDestroyAPIView(generics.DestroyAPIView):
     queryset = Materials.objects.all()
-    permission_classes = [IsAuthenticated, ~IsModerator, IsOwner]
+    permission_classes = [IsAuthenticated | ~IsModerator | IsOwner]
