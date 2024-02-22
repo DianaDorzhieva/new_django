@@ -1,10 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
 
 from course.models import Course
 from materials.models import Materials
 
 NULLABLE = {'blank': True, 'null': True}
+
+
+class UserRole(models.TextChoices):
+    MEMBER = 'member', _('member')
+    MODERATOR = 'moderator', _('moderator')
 
 
 class User(AbstractUser):
@@ -14,8 +20,9 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, verbose_name='почта')
     FIO = models.CharField(max_length=300, verbose_name='ФИО', **NULLABLE)
     avatar = models.ImageField(upload_to='users/', verbose_name='аватар', **NULLABLE)
-    phone = models.CharField(max_length=50, verbose_name='телефон',  **NULLABLE)
-    county = models.CharField(max_length=50, verbose_name='город',  **NULLABLE)
+    phone = models.CharField(max_length=50, verbose_name='телефон', **NULLABLE)
+    county = models.CharField(max_length=50, verbose_name='город', **NULLABLE)
+    role = models.CharField(max_length=50, choices=UserRole.choices, default=UserRole.MEMBER)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
