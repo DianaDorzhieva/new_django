@@ -40,3 +40,5 @@ class Client(models.Model):
     method_pay = models.CharField(max_length=15, choices=method_pay_choices,
                                   verbose_name='метод оплаты')
     money = models.IntegerField(verbose_name='сумма оплаты')
+
+
