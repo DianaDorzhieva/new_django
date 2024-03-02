@@ -30,8 +30,8 @@ class UserListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        #fields = ('email', 'FIO', 'phone', 'county', 'active')
-        fields = '__all__'
+        fields = ('email', 'FIO', 'phone', 'county', 'active')
+        #fields = '__all__'
 
     def get_active(self, instance):
         return instance.is_active

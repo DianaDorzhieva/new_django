@@ -1,5 +1,5 @@
 from django.http import Http404
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -17,20 +17,20 @@ class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     pagination_class = CoursePaginator
 
-    # def get_permissions(self):
-    #     if self.action == 'create':
-    #         self.permission_classes = [IsAuthenticated, ~IsModerator]
-    #     elif self.action == 'list':
-    #         self.permission_classes = [IsAuthenticated]
-    #     elif self.action == 'retrieve':
-    #         self.permission_classes = [IsAuthenticated, IsModerator | IsOwner]
-    #     elif self.action == 'update':
-    #         self.permission_classes = [IsAuthenticated, IsModerator | IsOwner]
-    #     elif self.action == 'partial_update':
-    #         self.permission_classes = [IsAuthenticated, IsModerator | IsOwner]
-    #     elif self.action == 'destroy':
-    #         self.permission_classes = [IsAuthenticated, ~IsModerator | IsOwner]
-    #     return [permission() for permission in self.permission_classes]
+    def get_permissions(self):
+        if self.action == 'create':
+            self.permission_classes = [IsAuthenticated, ~IsModerator]
+        elif self.action == 'list':
+            self.permission_classes = [IsAuthenticated]
+        elif self.action == 'retrieve':
+            self.permission_classes = [IsAuthenticated, IsModerator | IsOwner]
+        elif self.action == 'update':
+            self.permission_classes = [IsAuthenticated, IsModerator | IsOwner]
+        elif self.action == 'partial_update':
+            self.permission_classes = [IsAuthenticated, IsModerator | IsOwner]
+        elif self.action == 'destroy':
+            self.permission_classes = [IsAuthenticated, ~IsModerator | IsOwner]
+        return [permission() for permission in self.permission_classes]
 
     def perform_create(self, serializer):
         new_course = serializer.save()
@@ -41,6 +41,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 class SubscriptionView(APIView):
     serializer_class = SubscriptionSerializer
     queryset = Subscriptions.objects.all()
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         user = self.request.user
@@ -57,3 +58,5 @@ class SubscriptionView(APIView):
             message = 'Подписка на курс добавлена'
 
         return Response({"message": message})
+
+
