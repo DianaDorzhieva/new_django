@@ -12,9 +12,11 @@ urlpatterns = [
     path('client/update/<int:pk>/', ClientUpdateAPIView.as_view(), name='client_update'),
     path('client/delete/<int:pk>/', ClientDestroyAPIView.as_view(), name='client_delete'),
 
+    # путь для токена
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
+    # путь для пользователя
     path('user/create/', UserCreateAPIView.as_view(), name='user_create'),
     path('user/', UserListAPIView.as_view(), name='user_list'),
     path('user/<int:pk>/', UserRetrieveAPIView.as_view(), name='user_pk'),

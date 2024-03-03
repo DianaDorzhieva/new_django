@@ -45,7 +45,7 @@ class ClientDestroyAPIView(generics.DestroyAPIView):
 class UserListAPIView(generics.ListAPIView):
     serializer_class = UserListSerializer
     queryset = User.objects.all()
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
 class UserRetrieveAPIView(generics.RetrieveAPIView):

@@ -1,14 +1,11 @@
-from django.http import Http404
-from rest_framework import viewsets, status
+from rest_framework import viewsets
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from course.models import Course, Subscriptions
 from course.paginators import CoursePaginator
 from course.serliazers import CourseSerializer, SubscriptionSerializer
 from rest_framework.permissions import IsAuthenticated
-
 from users.permission import IsModerator, IsOwner
 
 
@@ -58,5 +55,3 @@ class SubscriptionView(APIView):
             message = 'Подписка на курс добавлена'
 
         return Response({"message": message})
-
-

@@ -1,6 +1,4 @@
 from rest_framework import serializers
-
-from course.serliazers import SubscriptionSerializer
 from users.models import Client, User
 
 
@@ -31,7 +29,6 @@ class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('email', 'FIO', 'phone', 'county', 'active')
-        #fields = '__all__'
 
     def get_active(self, instance):
         return instance.is_active

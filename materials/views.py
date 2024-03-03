@@ -3,14 +3,12 @@ from materials.models import Materials
 from materials.paginators import MaterialsPaginator
 from materials.serliazers import MaterialsSerializer
 from rest_framework.permissions import IsAuthenticated
-
 from users.permission import IsModerator, IsOwner
 
 
 class MaterialsCreateAPIView(generics.CreateAPIView):
     serializer_class = MaterialsSerializer
     permission_classes = [IsAuthenticated, ~IsModerator]
-
 
     def perform_create(self, serializer):
         new_materials = serializer.save()

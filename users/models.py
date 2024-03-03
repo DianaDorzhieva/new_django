@@ -31,7 +31,8 @@ class User(AbstractUser):
 class Client(models.Model):
     method_pay_choices = [('cash', 'наличными'), ('card', 'картой')]
 
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='пользователь', **NULLABLE)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='пользователь',
+                             **NULLABLE)
     courses = models.OneToOneField(Course, on_delete=models.CASCADE, **NULLABLE,
                                    verbose_name='курсы')
     materials = models.OneToOneField(Materials, on_delete=models.CASCADE, **NULLABLE,
@@ -40,5 +41,3 @@ class Client(models.Model):
     method_pay = models.CharField(max_length=15, choices=method_pay_choices,
                                   verbose_name='метод оплаты')
     money = models.IntegerField(verbose_name='сумма оплаты')
-
-

@@ -18,8 +18,10 @@ class Course(models.Model):
         verbose_name = 'курс'
         verbose_name_plural = 'курсы'
 
+
 class Subscriptions(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='пользователь', related_name='user')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                             verbose_name='пользователь', related_name='user')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='курс')
     is_activate = models.BooleanField(default=True, verbose_name='активация подписки')
 

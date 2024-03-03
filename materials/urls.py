@@ -1,7 +1,5 @@
 from django.urls import path
 from materials.apps import MaterialsConfig
-from rest_framework.routers import DefaultRouter
-from course.views import CourseViewSet
 from materials.views import MaterialsCreateAPIView, MaterialsListAPIView, MaterialsRetrieveAPIView, \
     MaterialsUpdateAPIView, MaterialsDestroyAPIView
 

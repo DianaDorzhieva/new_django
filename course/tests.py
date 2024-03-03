@@ -62,7 +62,6 @@ class SubscriptTestCase(APITestCase):
         responce = self.client.post('/subscript/', {'course_id': course.id})
         self.assertEquals(responce.status_code, status.HTTP_200_OK)
 
-
     def test_delete_subscript(self):
         """Тест на удаление подписки (по сути тоже самое что и на создание)"""
         course = Course.objects.create(name='Test Course', text='Test text', owner=self.user)

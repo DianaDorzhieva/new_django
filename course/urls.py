@@ -8,8 +8,4 @@ app_name = CourseConfig.name
 router = DefaultRouter()
 router.register(prefix=r'course', viewset=CourseViewSet, basename='courses')
 
-urlpatterns = [
-                  path('subscript/', SubscriptionView.as_view(),
-                       name='subscript'),
-
-              ] + router.urls
+urlpatterns = [path('subscript/', SubscriptionView.as_view(), name='subscript')] + router.urls
