@@ -41,3 +41,13 @@ class Client(models.Model):
     method_pay = models.CharField(max_length=15, choices=method_pay_choices,
                                   verbose_name='метод оплаты')
     money = models.IntegerField(verbose_name='сумма оплаты')
+
+    payment_url = models.URLField(verbose_name='ссылка для оплаты', **NULLABLE)
+
+
+    def __str__(self):
+        return f'{self.user} оплатил курс {self.courses}, cумма {self.money}'
+
+    class Meta:
+        verbose_name = 'Информация о платеже пользователя'
+        verbose_name_plural = 'Информация о платежах пользователя'

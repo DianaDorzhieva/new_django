@@ -1,16 +1,27 @@
 from rest_framework import generics
+
+from course.utils import create_product
 from users.models import Client, User
 from users.permission import IsUser
 from users.serliazers import ClientSerializer, UserSerializer, UserListSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
-""" Контроллеры для клиента"""
+""" Контроллеры для платежа клиента"""
 
 
 class ClientCreateAPIView(generics.CreateAPIView):
     serializer_class = ClientSerializer
+    queryset = Client.objects.all()
+    permission_classes = [AllowAny]
+
+    def perform_create(self, serializer):
+        client = serializer.save()
+        client.payment_url = create_product(client)
+        client.save()
+
+
 
 
 class ClientListAPIView(generics.ListAPIView):
