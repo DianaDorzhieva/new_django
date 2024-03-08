@@ -1,6 +1,8 @@
 from django.urls import path
 from users.apps import UsersConfig
-from users.views import *
+from users.views import ClientCreateAPIView, ClientListAPIView, ClientRetrieveAPIView, \
+    ClientUpdateAPIView, ClientDestroyAPIView, UserCreateAPIView, UserListAPIView, \
+    UserRetrieveAPIView, UserUpdateAPIView, UserDestroyAPIView
 from rest_framework_simplejwt.views import (TokenRefreshView, TokenObtainPairView)
 
 app_name = UsersConfig.name

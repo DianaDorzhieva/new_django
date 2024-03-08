@@ -1,10 +1,10 @@
 import stripe
-from config.settings import Api_key
+from config.settings import API_KEY
 from users.models import Client
 
 
 def create_product(client):
-    stripe.api_key = Api_key
+    stripe.api_key = API_KEY
     product = stripe.Product.create(name=client.courses.name)
 
     product_price = stripe.Price.create(

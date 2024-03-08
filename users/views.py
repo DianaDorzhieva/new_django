@@ -1,5 +1,4 @@
 from rest_framework import generics
-
 from course.utils import create_product
 from users.models import Client, User
 from users.permission import IsUser
