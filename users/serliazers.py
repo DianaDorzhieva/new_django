@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from users.models import Client, User
+from users.models import Payment, User
 
 
-class ClientSerializer(serializers.ModelSerializer):
+class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Client
+        model = Payment
         fields = '__all__'
 
 

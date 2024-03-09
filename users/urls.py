@@ -1,18 +1,18 @@
 from django.urls import path
 from users.apps import UsersConfig
-from users.views import ClientCreateAPIView, ClientListAPIView, ClientRetrieveAPIView, \
-    ClientUpdateAPIView, ClientDestroyAPIView, UserCreateAPIView, UserListAPIView, \
+from users.views import PaymentCreateAPIView, PaymentListAPIView, PaymentRetrieveAPIView, \
+    PaymentUpdateAPIView, PaymentDestroyAPIView, UserCreateAPIView, UserListAPIView, \
     UserRetrieveAPIView, UserUpdateAPIView, UserDestroyAPIView
 from rest_framework_simplejwt.views import (TokenRefreshView, TokenObtainPairView)
 
 app_name = UsersConfig.name
 
 urlpatterns = [
-    path('client/create/', ClientCreateAPIView.as_view(), name='client_create'),
-    path('client/', ClientListAPIView.as_view(), name='client_list'),
-    path('client/<int:pk>/', ClientRetrieveAPIView.as_view(), name='client_pk'),
-    path('client/update/<int:pk>/', ClientUpdateAPIView.as_view(), name='client_update'),
-    path('client/delete/<int:pk>/', ClientDestroyAPIView.as_view(), name='client_delete'),
+    path('payment/create/', PaymentCreateAPIView.as_view(), name='payment_create'),
+    path('payment/', PaymentListAPIView.as_view(), name='payment_list'),
+    path('payment/<int:pk>/', PaymentRetrieveAPIView.as_view(), name='payment_pk'),
+    path('payment/update/<int:pk>/', PaymentUpdateAPIView.as_view(), name='payment_update'),
+    path('payment/delete/<int:pk>/', PaymentDestroyAPIView.as_view(), name='payment_delete'),
 
     # путь для токена
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

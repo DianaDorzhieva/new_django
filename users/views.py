@@ -1,8 +1,8 @@
 from rest_framework import generics
 from course.utils import create_product
-from users.models import Client, User
+from users.models import Payment, User
 from users.permission import IsUser
-from users.serliazers import ClientSerializer, UserSerializer, UserListSerializer
+from users.serliazers import PaymentSerializer, UserSerializer, UserListSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -10,42 +10,42 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 """ Контроллеры для платежа клиента"""
 
 
-class ClientCreateAPIView(generics.CreateAPIView):
-    serializer_class = ClientSerializer
-    queryset = Client.objects.all()
+class PaymentCreateAPIView(generics.CreateAPIView):
+    serializer_class = PaymentSerializer
+    queryset = Payment.objects.all()
     permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
-        client = serializer.save()
-        client.payment_url = create_product(client)
-        client.save()
+        payment = serializer.save()
+        payment.payment_url = create_product(payment)
+        payment.save()
 
 
 
 
-class ClientListAPIView(generics.ListAPIView):
-    serializer_class = ClientSerializer
-    queryset = Client.objects.all()
+class PaymentListAPIView(generics.ListAPIView):
+    serializer_class = PaymentSerializer
+    queryset = Payment.objects.all()
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ('materials', 'method_pay')
     ordering_fields = ('day_pay',)
     permission_classes = [IsAuthenticated]
 
 
-class ClientRetrieveAPIView(generics.RetrieveAPIView):
-    serializer_class = ClientSerializer
-    queryset = Client.objects.all()
+class PaymentRetrieveAPIView(generics.RetrieveAPIView):
+    serializer_class = PaymentSerializer
+    queryset = Payment.objects.all()
     permission_classes = [IsAuthenticated]
 
 
-class ClientUpdateAPIView(generics.UpdateAPIView):
-    serializer_class = ClientSerializer
-    queryset = Client.objects.all()
+class PaymentUpdateAPIView(generics.UpdateAPIView):
+    serializer_class = PaymentSerializer
+    queryset = Payment.objects.all()
     permission_classes = [IsAuthenticated]
 
 
-class ClientDestroyAPIView(generics.DestroyAPIView):
-    queryset = Client.objects.all()
+class PaymentDestroyAPIView(generics.DestroyAPIView):
+    queryset = Payment.objects.all()
     permission_classes = [IsAuthenticated]
 
 

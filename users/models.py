@@ -28,21 +28,21 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
 
-class Client(models.Model):
+class Payment(models.Model):
     method_pay_choices = [('cash', 'наличными'), ('card', 'картой')]
 
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='пользователь',
                              **NULLABLE)
-    courses = models.OneToOneField(Course, on_delete=models.CASCADE, **NULLABLE,
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, **NULLABLE,
                                    verbose_name='курсы')
-    materials = models.OneToOneField(Materials, on_delete=models.CASCADE, **NULLABLE,
+    material = models.ForeignKey(Materials, on_delete=models.CASCADE, **NULLABLE,
                                      verbose_name='уроки')
-    day_pay = models.DateField(verbose_name='дата оплаты')
-    method_pay = models.CharField(max_length=15, choices=method_pay_choices,
-                                  verbose_name='метод оплаты')
-    money = models.IntegerField(verbose_name='сумма оплаты')
+    day_pay = models.DateField(verbose_name='дата оплаты', **NULLABLE)
+    method_pay = models.TextField(choices=method_pay_choices,
+                                  verbose_name='метод оплаты', **NULLABLE)
+    money = models.IntegerField(verbose_name='сумма оплаты', **NULLABLE)
 
-    payment_url = models.URLField(verbose_name='ссылка для оплаты', **NULLABLE)
+    payment_url = models.TextField(verbose_name='ссылка для оплаты', **NULLABLE)
 
 
     def __str__(self):

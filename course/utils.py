@@ -1,15 +1,14 @@
 import stripe
 from config.settings import API_KEY
-from users.models import Client
 
 
-def create_product(client):
+def create_product(payment):
     stripe.api_key = API_KEY
-    product = stripe.Product.create(name=client.courses.name)
+    product = stripe.Product.create(name=payment.course.name)
 
     product_price = stripe.Price.create(
-        currency="usd",
-        unit_amount=1000,
+        currency="rub",
+        unit_amount=payment.course.price*100,
         product_data={"name": product.get('name')}
     )
 
