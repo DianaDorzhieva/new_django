@@ -7,6 +7,7 @@ from course.paginators import CoursePaginator
 from course.serliazers import CourseSerializer, SubscriptionSerializer
 from rest_framework.permissions import IsAuthenticated
 from users.permission import IsModerator, IsOwner
+from users.task import mail_update_course
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -33,6 +34,10 @@ class CourseViewSet(viewsets.ModelViewSet):
         new_course = serializer.save()
         new_course.owner = self.request.user
         new_course.save()
+
+    def perform_update(self, serializer):
+        course = serializer.save()
+        mail_update_course.delay(course.id)
 
 
 class SubscriptionView(APIView):
