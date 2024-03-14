@@ -7,7 +7,7 @@ from course.paginators import CoursePaginator
 from course.serliazers import CourseSerializer, SubscriptionSerializer
 from rest_framework.permissions import IsAuthenticated
 from users.permission import IsModerator, IsOwner
-from users.task import mail_update_course
+from users.tasks import mail_update_course
 
 
 class CourseViewSet(viewsets.ModelViewSet):

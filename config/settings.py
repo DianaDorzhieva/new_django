@@ -23,7 +23,7 @@ load_dotenv(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*e0qs6z2c0l#b@m!rpve)2e=q5k8a!52t2(n7-(6v3zv3q4b45'
+SECRET_KEY = os.getenv('SECRET_KEY'),
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'term4',
         'USER': 'postgres',
-        'PASSWORD': '12345',
+        'PASSWORD': os.getenv('PASSWORD'),
         'PORT': 5432,
         'HOST': 0000
     }
@@ -159,8 +159,8 @@ SIMPLE_JWT = {
 API_KEY = os.getenv('API_KEY')
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'd.abdrahm4nova@yandex.ru'
-EMAIL_HOST_PASSWORD = 'ijeklilpqwqbztvi'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
@@ -175,8 +175,8 @@ if CACHE_ENABLED:
             "LOCATION": os.getenv('CACHE_LOCATION'),
         }
     }
-REDIS_HOST = "94.241.142.87"
-REDIS_PORT = "6379"
+REDIS_HOST = os.getenv('REDIS_HOST')
+REDIS_PORT = os.getenv('REDIS_PORT')
 CELERY_BROKER_URL = "redis://" + REDIS_HOST + ":" + REDIS_PORT + "/0"
 CELERY_BROKER_TRANSPORT_OPTIONS = {"visibility_timeout": 3600}
 CELERY_RESULT_BACKEND = "redis://" + REDIS_HOST + ":" + REDIS_PORT + "/0"
@@ -185,4 +185,11 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 
+CELERY_TIMEZONE = 'Europe/Moscow'
 
+CELERY_BEAT_SCHEDULE = {
+    'task-name': {
+        'task': 'users.tasks.chek_user',
+        'shedule': timedelta(days=1)
+    }
+}
