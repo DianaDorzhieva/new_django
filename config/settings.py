@@ -88,11 +88,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'term4',
-        'USER': 'postgres',
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
         'PASSWORD': os.getenv('PASSWORD'),
-        'PORT': 5432,
-        'HOST': 0000
+        'PORT': os.getenv('PORT'),
+        'HOST': os.getenv('HOST')
     }
 }
 
@@ -185,7 +185,7 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 
-CELERY_TIMEZONE = 'Europe/Moscow'
+CELERY_TIMEZONE = 'Russia/Yekaterinburg'
 
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
