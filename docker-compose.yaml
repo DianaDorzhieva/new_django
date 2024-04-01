@@ -2,11 +2,12 @@ version: '3' # Версия указывает на версию синтакс�
 # Лучше использовать актуальную версию, которая рекомендуется в документации
 services:
   db:
-    restart: always
     image: postgres
-    container_name: DRF_docker
+    restart: always
     environment:
       POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5435:5432"
@@ -21,9 +22,9 @@ services:
       retries: 5
 
 
+
   app:
     build: .
-    container_name: DRF
     tty: true
     command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     ports:
@@ -33,6 +34,32 @@ services:
     depends_on:
         db:
           condition: service_healthy
+
+  redis:
+    image: redis
+    ports:
+      - '6379:6379'
+
+  celery:
+      build: .
+      tty: true
+      command: celery -A config worker -l INFO
+      env_file:
+        - .env
+      depends_on:
+        - redis
+        - app
+
+  celery_beat:
+      build: .
+      tty: true
+      command: celery -A config beat -l INFO -S django
+      env_file:
+        - .env
+      depends_on:
+        - redis
+        - app
+
 
 
 volumes:

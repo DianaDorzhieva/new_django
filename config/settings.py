@@ -88,11 +88,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'term4',
+        'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': os.getenv('PASSWORD'),
         'PORT': os.getenv('PORT'),
         'HOST': 'db'
+
     }
 }
 
@@ -177,7 +178,7 @@ if CACHE_ENABLED:
     }
 REDIS_HOST = os.getenv('REDIS_HOST')
 REDIS_PORT = os.getenv('REDIS_PORT')
-CELERY_BROKER_URL = "redis://" + REDIS_HOST + ":" + REDIS_PORT + "/0"
+CELERY_BROKER_URL = "redis://redis:" + REDIS_PORT + "/0"
 CELERY_BROKER_TRANSPORT_OPTIONS = {"visibility_timeout": 3600}
 CELERY_RESULT_BACKEND = "redis://" + REDIS_HOST + ":" + REDIS_PORT + "/0"
 
