@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from datetime import timedelta
 from pathlib import Path
-
+from celery.schedules import crontab
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -189,8 +189,8 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = 'Europe/London'
 
 CELERY_BEAT_SCHEDULE = {
-    'task-name': {
+    'chek_user': {
         'task': 'users.tasks.chek_user',
-        'shedule': timedelta(days=1)
+        'schedule': crontab(minute=0, hour=0),
     }
 }
